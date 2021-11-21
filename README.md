@@ -6,7 +6,7 @@
     - Creates an Observable from an Array, an array-like object, a Promise, an iterable object, or an Observable-like object.
   - of
     - Converts the arguments to an observable sequence.
-    * Each argument becomes a next notification.
+    - Each argument becomes a next notification.
   - fromEvent
     - Creates an Observable that emits events of a specific type coming from the given event target.
   - interval
@@ -17,19 +17,29 @@
 - Join operators
 
   - concat
+    - Creates an output Observable which sequentially emits all values from the first given Observable and then moves on to the next.
   - combineLatest
+    - Combines multiple Observables to create an Observable whose values are calculated from the latest values of each of its input Observables.
+  - merge
+    - Creates an output Observable which concurrently emits all values from every given input Observable.
+  - startWith
+    - Returns an observable that, at the moment of subscription, will synchronously emit all values provided to this operator, then subscribe to the source and mirror all of its emissions to subscribers.
+  - withLatestFrom
+    - Combines the source Observable with other Observables to create an Observable whose values are calculated from the latest values of each, only when the source emits.
+  - zip
+    - Combines multiple Observables to create an Observable whose values are calculated from the values, in order, of each of its input Observables.
 
 - Filter operators
 
   - filter
+    Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate.
   - take
     - Emits only the first count values emitted by the source Observable.
   - takeUntil
-
-  * first
-  * last
-  * skip
-  * skipUntil
+  - first
+  - last
+  - skip
+  - skipUntil
 
 - Transformation operations
 
@@ -40,5 +50,9 @@
 
 * Others
   - tap
+    - Used to perform side-effects for notifications from the source observable
+    - Tap is designed to allow the developer a designated place to perform side effects.
+    - While you could perform side-effects inside of a map or a mergeMap, that would make their mapping functions impure, which isn't always a big deal, but will make it so you can't do things like memoize those functions.
+    - The tap operator is designed solely for such side-effects to help you remove side-effects from other operations.
 
 [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-ivy-aprpi7)

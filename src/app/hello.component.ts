@@ -13,8 +13,18 @@ import {
   withLatestFrom,
   zip,
   timer,
+  concatMap,
+  mergeMap,
+  switchMap,
 } from 'rxjs';
-import { take, mapTo, filter, map } from 'rxjs/operators';
+import {
+  take,
+  mapTo,
+  filter,
+  map,
+  takeUntil,
+  bufferTime,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'hello',
@@ -113,5 +123,40 @@ export class HelloComponent {
       .pipe(map(([age, name, isDev]) => ({ age, name, isDev })))
       .subscribe((x) => console.log(x));
     console.log('zip end');
+
+    console.log('takeUntil start');
+    interval(1000)
+      .pipe(takeUntil(fromEvent(document, 'click')))
+      .subscribe((x) => console.log(x));
+    console.log('takeUntil end');
+
+    console.log('bufferTime start');
+    interval(1000)
+      .pipe(bufferTime(2000, 5000))
+      .subscribe((x) => console.log(x));
+    console.log('bufferTime end');
+
+    console.log('concatMap start');
+    fromEvent(document, 'click')
+      .pipe(concatMap((ev) => interval(1000).pipe(take(4))))
+      .subscribe((x) => console.log(x));
+    console.log('concatMap end');
+
+    console.log('mergeMap start');
+    of('a', 'b', 'c')
+      .pipe(
+        mergeMap((x) =>
+          interval(1000).pipe(
+            take(5),
+            map((i) => x + i)
+          )
+        )
+      )
+      .subscribe((x) => console.log(x));
+    console.log('mergeMap start');
+
+    console.log('switchMap start');
+    fromEvent(document, 'click').pipe(switchMap((ev) => interval(1000)));
+    console.log('switchMap start');
   }
 }

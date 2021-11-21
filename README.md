@@ -36,10 +36,7 @@
   - take
     - Emits only the first count values emitted by the source Observable.
   - takeUntil
-  - first
-  - last
-  - skip
-  - skipUntil
+    - Emits the values emitted by the source Observable until a notifier Observable emits a value.
 
 - Transformation operations
 
@@ -47,6 +44,14 @@
     - Applies a given project function to each value emitted by the source Observable, and emits the resulting values as an Observable.
   - mapTo
     - Emits the given constant value on the output Observable every time the source Observable emits a value.
+  - bufferTime
+    - Buffers the source Observable values for a specific time period.
+  - concatMap
+    - Projects each source value to an Observable which is merged in the output Observable, in a serialized fashion waiting for each one to complete before merging the next.
+  - mergeMap
+    - Projects each source value to an Observable which is merged in the output Observable.
+  - switchMap
+    - Projects each source value to an Observable which is merged in the output Observable, emitting values only from the most recently projected Observable.
 
 * Others
   - tap
